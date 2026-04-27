@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coffee Dashboard</title>
+</head>
+<body>
+
+<h1>Coffee Journal</h1>
+
+
+{% if visits %}
+    <ul>
+    {% for visit in visits %}
+        <li>
+            <strong>{{ visit.shop.name }}</strong><br>
+            Rating: {{ visit.rating }}/5<br>
+            Notes: {{ visit.notes }}
+        </li>
+        <br>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No visits yet.</p>
+{% endif %}
+
+<a href="/add">Add New Entry</a>
+
+</body>
+</html>
