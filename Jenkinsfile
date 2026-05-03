@@ -2,19 +2,30 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building..'
+                script {
+                    sh 'docker compose up --build -d'
+                }
             }
         }
-        stage('Test') {
+
+        stage('Verify') {
             steps {
-                echo 'Testing..'
+                echo "Verifying..."
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo "Testing..."
             }
         }
     }
