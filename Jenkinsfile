@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build/Deploy') {
             steps {
                 script {
                     sh 'docker compose up --build -d'
@@ -19,14 +19,9 @@ pipeline {
 
         stage('Verify') {
             steps {
-                echo "Verifying..."
+                sh "curl -f http://localhost:5001"
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo "Testing..."
-            }
-        }
     }
 }
