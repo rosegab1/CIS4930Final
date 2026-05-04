@@ -2,27 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Init') {
+
+        stage('Checkout') {
             steps {
-                echo 'Starting CI pipeline for Coffee App'
+                checkout scm
             }
         }
-        
-        stage('Build') {
+
+        stage('Build/Deploy') {
             steps {
-                echo 'Building..'
+                script {
+                    sh 'docker compose up --build -d'
+                }
             }
         }
-        stage('Test') {
+
+        stage('Verify') {
             steps {
-                echo 'Testing..'
+                sh "curl -f http://localhost:5001"
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+
     }
-    
 }
