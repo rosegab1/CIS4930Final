@@ -14,6 +14,9 @@ db = client["coffee_app"]
 @app.route("/")
 @app.route("/dashboard")
 def dashboard():
+    if "username" not in session:
+        return redirect("/login")
+
     visits = list(db.visits.find())
 
     for visit in visits:
@@ -24,6 +27,9 @@ def dashboard():
 
 @app.route("/add", methods=["GET", "POST"])
 def add_shop():
+    if "username" not in session:
+        return redirect("/login")
+        
     if request.method == "POST":
         name = request.form["name"]
         rating = int(request.form["rating"])
